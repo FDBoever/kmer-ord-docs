@@ -3,7 +3,7 @@
 
 {==
 
-Complete command-line and parameter documentation for each script
+Complete command-line and parameter documentation are provided for each script
 
 ==}
 
@@ -39,7 +39,7 @@ Complete command-line and parameter documentation for each script
     ```bash
     python kmer-ord.py \
         --input kmer_matrix.tsv \
-        --methods all
+        --methods all \
         --normalisation clr
     ```
 
