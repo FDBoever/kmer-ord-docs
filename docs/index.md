@@ -1,6 +1,10 @@
 # Documentation for kmer-ord
 
+{==
 
+Documentation is still under development, bare with us
+
+==}
 
 This documentation describes a toolkit for computing, normalising, and ordinating k-mer count data for exploratory analysis of long-read sequencing datasets or assembled contigs.
 
