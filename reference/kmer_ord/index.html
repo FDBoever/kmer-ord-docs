@@ -1,0 +1,1922 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Read-level k-mer ordination for pre-assembly genome deconvolution">
+      
+      
+        <meta name="author" content="Frederik De Boever">
+      
+      
+        <link rel="canonical" href="https://FDBoever.github.io/kmer-ord-docs/reference/kmer_ord/">
+      
+      
+        <link rel="prev" href="../kmer_counting/">
+      
+      
+        <link rel="next" href="../../concepts/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>k-mer ordination - kmer-ord-docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRed+hat+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Red hat Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#k-mer-ordination-kmer-ord" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="kmer-ord-docs" class="md-header__button md-logo" aria-label="kmer-ord-docs" data-md-component="logo">
+      
+  <img src="../../assets/overview.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kmer-ord-docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              k-mer ordination
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="deep-purple"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="deep-organe"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/FDBoever/kmer-ord" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    FDBoever/kmer-ord
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../installation/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Installation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../quickstart/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Quickstart
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorials/" class="md-tabs__link">
+          
+  
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../concepts/" class="md-tabs__link">
+          
+  
+  
+  Concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kmer-ord-docs" class="md-nav__button md-logo" aria-label="kmer-ord-docs" data-md-component="logo">
+      
+  <img src="../../assets/overview.png" alt="logo">
+
+    </a>
+    kmer-ord-docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/FDBoever/kmer-ord" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    FDBoever/kmer-ord
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorials
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorials overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/basic_usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Basic usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/advanced_usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kmer_counting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    k-mer counting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    k-mer ordination
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    k-mer ordination
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#input-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Input format
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic usage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command-line arguments
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Command-line arguments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required arguments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#embedding-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embedding configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#normalisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Normalisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-pca-pre-reduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional PCA pre-reduction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-screening" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter screening
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hyperparameter-presets-dataset-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hyperparameter presets ~ dataset scale
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Output structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#projection-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Projection outputs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocessed-matrices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preprocessed matrices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-screening-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter screening outputs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related documentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/kmer_counting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    K-mer counting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/compositional_data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compositional data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/dimensionality_reduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dimensionality reduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/parameter_screening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parameter screening
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#input-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Input format
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic usage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command-line arguments
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Command-line arguments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required arguments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#embedding-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embedding configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#normalisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Normalisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-pca-pre-reduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional PCA pre-reduction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-screening" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter screening
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hyperparameter-presets-dataset-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hyperparameter presets ~ dataset scale
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Output structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#projection-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Projection outputs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocessed-matrices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preprocessed matrices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-screening-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter screening outputs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related documentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="k-mer-ordination-kmer-ord"><em>K</em>-mer Ordination (kmer-ord)</h1>
+<p>The script <code>kmer-ord.py</code> performs dimensionality reduction and ordination on <em>k</em>-mer count matrices to enable exploratory analysis and visualisation of sequence composition at read or contig level.</p>
+<p>The tool supports multiple normalisation strategies and multiple linear and non-linear embedding methods. It produces tabular outputs suitable for downstream visualisation and binning. Each normalisation and DR method is processed independently and produces its own outputs.</p>
+<h2 id="input-format">Input format</h2>
+<p>Input matrices are derived from <code>kmer-counting.py</code>(../reference/kmer_counting.md). If derived otherwise, make sure the matrix is tab-separated (.tsv) and has the following structure: Rows represent sequences (reads, contigs), columns represent numeric <em>k</em>-mer counts, where the first column contains sequence identifiers. Missing values are permitted and handled during preprocessing.</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">kmer_matrix.tsv</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>Sequence_ID   AAA...   AAC...   AAG...   ...
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>read_001     12        0         4
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>read_002     7         2         1
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="basic-usage">Basic usage</h2>
+<p>Run a single ordination method:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>kmer_ord.py<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span>--input<span class="w"> </span>kmer_matrix.tsv<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span>--methods<span class="w"> </span>umap<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span>--dimension<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span>--normalisation<span class="w"> </span>clr
+</span></code></pre></div>
+<p>Run multiple methods:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python<span class="w"> </span>kmer_ord.py<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span>--input<span class="w"> </span>kmer_matrix.tsv<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span>--methods<span class="w"> </span>pca<span class="w"> </span>localmap<span class="w"> </span>umap<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span>--normalisation<span class="w"> </span>clr
+</span></code></pre></div>
+<p>Run all supported methods:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python<span class="w"> </span>kmer_ord.py<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span>--input<span class="w"> </span>kmer_matrix.tsv<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span>--methods<span class="w"> </span>all<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span>--normalisation<span class="w"> </span>clr
+</span></code></pre></div>
+<hr />
+<h2 id="command-line-arguments">Command-line arguments</h2>
+<h3 id="required-arguments">Required arguments</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Flag(s)</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Input matrix</td>
+<td><code>-i</code>, <code>--input</code></td>
+<td>string</td>
+<td><em>required</em></td>
+<td>Path to the input <em>k</em>-mer count matrix (TSV)</td>
+</tr>
+<tr>
+<td>Methods</td>
+<td><code>-m</code>, <code>--methods</code></td>
+<td>list</td>
+<td><em>required</em></td>
+<td>Dimensionality reduction methods to apply</td>
+</tr>
+</tbody>
+</table>
+<p>Supported methods: 'pca', 'kernel_pca', 'sparse_pca', 'tsne', 'umap', 'trimap', 'pacmap', 'localmap', 'lle', or 'all'
+For details about DR methods see <a href="../../concepts/dimensionality_reduction/">Concepts: Dimensionality reduction</a> for further details.</p>
+<hr />
+<h3 id="embedding-configuration">Embedding configuration</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Flag</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Embedding dimensionality</td>
+<td><code>-d</code>, <code>--dimension</code></td>
+<td>int</td>
+<td>2</td>
+<td>Number of embedding dimensions (2 or 3)</td>
+</tr>
+<tr>
+<td>Random seed</td>
+<td><code>--seed</code></td>
+<td>int</td>
+<td>42</td>
+<td>Random seed for reproducibility</td>
+</tr>
+</tbody>
+</table>
+<p>Dimensionality reduction embeddings can vary depending on the random seed, specifying a seed ensures reproducible results.</p>
+<hr />
+<h3 id="normalisation">Normalisation</h3>
+<p><em>k</em>-mer count matrices are compositional in the sense that counts depend on sequence length. Longer sequences naturally have higher counts. 
+To make the data suitable for ordination and downstream analysis, normalisation is recommended. 
+By default Centered Log-Ratio (CLR) transformation is applied, but other normalisation strategies are available and can be speficied via the <code>--normalisation</code> flag. Multiple normalisation methods may be specified separated by a space, and are applied independtly.</p>
+<p>Please see the <a href="../../concepts/compositional_data/">Concepts: Compositional data</a> for further details.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Flag</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Normalisation method(s)</td>
+<td><code>--normalisation</code></td>
+<td>list</td>
+<td>clr</td>
+<td>One or more normalisation strategies</td>
+</tr>
+</tbody>
+</table>
+<p>Allowed values are <code>log_normalisation</code>, <code>clr</code>, <code>tss</code>,<code>log_tss</code> </p>
+<hr />
+<h3 id="optional-pca-pre-reduction">Optional PCA pre-reduction</h3>
+<p>PCA may be applied prior to nonlinear embedding.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Flag</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enable PCA</td>
+<td><code>--pca_dim_red</code></td>
+<td>flag</td>
+<td>off</td>
+<td>Apply PCA to reduce dimensions before performing the selected embedding(s)</td>
+</tr>
+<tr>
+<td>Keep variance</td>
+<td><code>--keep_variance</code></td>
+<td>float</td>
+<td>none</td>
+<td>Fraction of total variance to retain (e.g., 0.90, keeps 90%)</td>
+</tr>
+<tr>
+<td>Keep components</td>
+<td><code>--keep_pcs</code></td>
+<td>int</td>
+<td>none</td>
+<td>Number of principal components to retain</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> <code>--keep_variance</code> and <code>--keep_pcs</code> are mutually exclusive.</p>
+<hr />
+<h3 id="parameter-screening">Parameter screening</h3>
+<p>The script provides automated parameter screening to explore how different hyperparameter choices affect the resultin embeddings. 
+Screening focuses on parameters that control the balance between global structure preservation, which is particularly important as dataset sizes increases</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Flag</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Screen parameters</td>
+<td><code>--screen_params</code></td>
+<td>flag</td>
+<td>off</td>
+<td>Run parameter sweeps instead of single embedding</td>
+</tr>
+</tbody>
+</table>
+<p>When enabled, the script evaluates multiple parameter combinations and writes each embedding to disk. </p>
+<ul>
+<li>t-SNE screens multiple <code>perplexity</code> and <code>learning-rate</code> values  </li>
+<li>UMAP screens multiple <code>n_neighbors</code> and <code>min_dist</code> values  </li>
+<li>TRIMAP screens multiple <code>n_inliers</code> and <code>weight_temp</code> values</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>parameter screening is indended for exploratory analysis!</li>
+<li>For routine analysis, scale-dependent presents (via <code>--scale</code>) provide reasonable hyperparameter settings without exhaustive screening.</li>
+<li>screening is computationally expensive for large datasets. </li>
+</ul>
+</div>
+<h3 id="hyperparameter-presets-dataset-scale">Hyperparameter presets ~ dataset scale</h3>
+<p>In addition to explicit parameter screening, the script provides predefined hyperparameter presets that adapt DR methods to different dataset sizes</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Flag</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dataset scale</td>
+<td><code>--scale</code></td>
+<td>string</td>
+<td><code>default</code></td>
+<td>Select a predefined hyperparameter preset</td>
+</tr>
+</tbody>
+</table>
+<p>allowed values are <code>default</code>, <code>small</code>, <code>medium</code>, <code>large</code>, and <code>auto</code></p>
+<p>Each preset maps to method-specific hyperparameters that are chosen to be sensible to the corresponding dataset size (e.g. n_neighbors for UMAP, perplexity for t-SNE, or FP_ratio for PaCMAP and LocalMAP). </p>
+<p>when <code>--scale auto</code> is used, the scale category is inferred from the number of sequences in the input matrix:</p>
+<ul>
+<li>small: fewer than 100,000 sequences</li>
+<li>medium 100,000 to 1,000,000 sequences</li>
+<li>large: more than 1,000,000 sequences</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When screening is enabled via <code>--screen_params</code>, preset values are ignored (<code>--scale</code>), all relevant parameter combinations are evaluated and saved.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Scale</th>
+<th>Hyperparameters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>UMAP</strong></td>
+<td>default</td>
+<td><code>n_neighbors=15</code>, <code>min_dist=0.1</code></td>
+</tr>
+<tr>
+<td></td>
+<td>small</td>
+<td><code>n_neighbors=30</code>, <code>min_dist=0.05</code></td>
+</tr>
+<tr>
+<td></td>
+<td>medium</td>
+<td><code>n_neighbors=100</code>, <code>min_dist=0.1</code></td>
+</tr>
+<tr>
+<td></td>
+<td>large</td>
+<td><code>n_neighbors=150</code>, <code>min_dist=0.2</code></td>
+</tr>
+<tr>
+<td><strong>t-SNE</strong></td>
+<td>default</td>
+<td><code>init=pca</code>, <code>random_state=42</code></td>
+</tr>
+<tr>
+<td></td>
+<td>small</td>
+<td><code>perplexity=30</code>, <code>init=pca</code>, <code>random_state=42</code></td>
+</tr>
+<tr>
+<td></td>
+<td>medium</td>
+<td><code>perplexity=100</code>, <code>init=pca</code>, <code>random_state=42</code></td>
+</tr>
+<tr>
+<td></td>
+<td>large</td>
+<td><code>perplexity=200</code>, <code>init=pca</code>, <code>random_state=42</code></td>
+</tr>
+<tr>
+<td><strong>TRIMAP</strong></td>
+<td>default</td>
+<td><code>n_inliers=10</code>, <code>weight_temp=0.5</code></td>
+</tr>
+<tr>
+<td></td>
+<td>small</td>
+<td><code>n_inliers=50</code>, <code>weight_temp=0.3</code></td>
+</tr>
+<tr>
+<td></td>
+<td>medium</td>
+<td><code>n_inliers=100</code>, <code>weight_temp=0.4</code></td>
+</tr>
+<tr>
+<td></td>
+<td>large</td>
+<td><code>n_inliers=150</code>, <code>weight_temp=0.5</code></td>
+</tr>
+<tr>
+<td><strong>PaCMAP</strong></td>
+<td>default</td>
+<td><code>MN_ratio=0.5</code>, <code>FP_ratio=2</code></td>
+</tr>
+<tr>
+<td></td>
+<td>small</td>
+<td><code>MN_ratio=0.5</code>, <code>FP_ratio=2</code></td>
+</tr>
+<tr>
+<td></td>
+<td>medium</td>
+<td><code>MN_ratio=0.5</code>, <code>FP_ratio=3</code></td>
+</tr>
+<tr>
+<td></td>
+<td>large</td>
+<td><code>MN_ratio=0.5</code>, <code>FP_ratio=5</code></td>
+</tr>
+<tr>
+<td><strong>LocalMAP</strong></td>
+<td>default</td>
+<td><code>MN_ratio=0.5</code>, <code>FP_ratio=0.5</code></td>
+</tr>
+<tr>
+<td></td>
+<td>small</td>
+<td><code>MN_ratio=0.3</code>, <code>FP_ratio=0.5</code></td>
+</tr>
+<tr>
+<td></td>
+<td>medium</td>
+<td><code>MN_ratio=0.5</code>, <code>FP_ratio=0.7</code></td>
+</tr>
+<tr>
+<td></td>
+<td>large</td>
+<td><code>MN_ratio=0.7</code>, <code>FP_ratio=1.0</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="output-structure">Output structure</h2>
+<p>All outputs are written relative to the input file location.</p>
+<h3 id="projection-outputs">Projection outputs</h3>
+<p>Low-dimensional projections are written to:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>projections/
+</span></code></pre></div>
+<p>File naming pattern:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>input_&lt;D&gt;D_&lt;normalisation&gt;_&lt;method&gt;_output.tsv
+</span></code></pre></div>
+<p>Each file contains embedding coordinates for all samples.</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">example.6mer.matrix_2D_clr_umap_output.tsv</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-6-10">10</a></span>
+<span class="normal"><a href="#__codelineno-6-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a>UMAP_1  UMAP_2
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a>-0.2375389  -0.24478829
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a>1.7667027   0.94539994
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a>0.41837573  1.0262766
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a>-1.0671473  0.011101685
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6"></a>-2.5626185  -0.15495488
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7"></a>-0.34270006 0.64091235
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8"></a>1.0530657   -0.9450859
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9"></a>-1.9106835  -1.3515233
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10"></a>-0.7706668  1.2096583
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11"></a>-1.4292544  -1.2981397
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h3 id="preprocessed-matrices">Preprocessed matrices</h3>
+<p>For each normalisation method, the preprocessed feature matrix is saved as:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>input_&lt;normalisation&gt;_preprocessed.npy
+</span></code></pre></div>
+<p>These files store the transformed matrices used for embedding.</p>
+<hr />
+<h3 id="parameter-screening-outputs">Parameter screening outputs</h3>
+<p>When parameter screening is enabled, results are written to method-specific directories:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>input.tsv_umap_parameter_screening  
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>input.tsv_tsne_parameter_screening  
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>input.tsv_trimap_parameter_screening  
+</span></code></pre></div>
+<p>Each file corresponds to a single parameter combination.</p>
+<hr />
+<h2 id="notes">Notes</h2>
+<ul>
+<li>Large <em>k</em>-mer matrices may require substantial memory  </li>
+<li>PCA pre-reduction is recommended for large datasets  </li>
+<li>Parameter screening can generate many output files</li>
+</ul>
+<hr />
+<h2 id="related-documentation">Related documentation</h2>
+<ul>
+<li>Concepts: <em>k</em>-mer manifolds and normalisation strategies  </li>
+<li>Tutorials: end-to-end ordination and visualisation workflows</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../kmer_counting/" class="md-footer__link md-footer__link--prev" aria-label="Previous: k-mer counting">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                k-mer counting
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../concepts/" class="md-footer__link md-footer__link--next" aria-label="Next: Concepts overview">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Concepts overview
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 Frederik De Boever
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.footer", "navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
