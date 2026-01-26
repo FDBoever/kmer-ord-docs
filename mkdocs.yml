@@ -1,6 +1,6 @@
 site_name: kmer-ord-docs
 site_description: Read-level k-mer ordination for pre-assembly genome deconvolution
-site_author: Frederik Deboever
+site_author: Frederik De Boever
 site_url: https://FDBoever.github.io/kmer-ord-docs/
 
 repo_name: FDBoever/kmer-ord
