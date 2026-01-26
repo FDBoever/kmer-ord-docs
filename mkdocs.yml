@@ -1,10 +1,10 @@
-site_name: protist-traits-docs
-site_description: Documentation for protist-traits
+site_name: kmer-ord-docs
+site_description: Read-level k-mer ordination for pre-assembly genome deconvolution
 site_author: Frederik De Boever
-site_url: https://FDBoever.github.io/protist-traits-docs/
+site_url: https://FDBoever.github.io/kmer-ord-docs/
 
-repo_name: FDBoever/protist-traits
-repo_url: https://github.com/FDBoever/protist-traits
+repo_name: FDBoever/kmer-ord
+repo_url: https://github.com/FDBoever/kmer-ord
 edit_uri: edit/main/docs/
 
 theme:
@@ -39,16 +39,25 @@ theme:
 
 nav:
   - Home: index.md
+  - Installation: installation.md
   - Quickstart: quickstart.md
 
-  - Ontology:
-      - Ontology overview: ontology/ontology_overview.md
-      - Ecology Ontoloty (ECO): ontology/ecology_ontology.md
-
+  - Tutorials:
+      - Tutorials overview: tutorials/index.md
+      - Basic usage: tutorials/basic_usage.md
+      - Advanced usage: tutorials/advanced_usage.md
   
-  - Design:
-      - Design overview: design/index.md
-      - Public database integration: design/public-database-integration.md
+  - Reference:
+      - Reference overview: reference/index.md
+      - k-mer counting: reference/kmer_counting.md
+      - k-mer ordination: reference/kmer_ord.md
+
+  - Concepts:
+      - Concepts overview: concepts/index.md
+      - K-mer counting: concepts/kmer_counting.md
+      - Compositional data: concepts/compositional_data.md
+      - Dimensionality reduction: concepts/dimensionality_reduction.md
+      - Parameter screening: concepts/parameter_screening.md
 
 markdown_extensions:
   - pymdownx.superfences
@@ -93,4 +102,4 @@ extra_css:
 plugins:
   - search
 
-copyright: Copyright &copy; 2025-2026 Frederik De Boever
+copyright: Copyright &copy; 2025 Frederik De Boever
