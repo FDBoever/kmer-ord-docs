@@ -1,5 +1,46 @@
 # Quickstart
 
+## 1. Install dependencies
+
+```bash
+kmer-ord setup
+```
+
+## 2. Run projection pipeline
+
+```bash
+kmer-ord project -i reads.fastq.gz -o output_dir
+```
+
+## 3. Visualise results
+
+```bash
+kmer-ord visualise -d results/kmer-ord.sqlite
+```
+
+## 4. Run clustering pipeline
+
+```bash
+kmer-ord cluster -i input.fastq -o output_dir
+```
+
+
+## 5. Output
+
+```bash
+output_dir/
+├── fasta/
+├── summary/
+├── kmer/
+├── embeddings/
+├── clustering/
+└── kmer-ord.sqlite
+```
+
+---
+
+
+
 This quickstart walks through a minimal end-to-end workflow:
 from a set of sequences to a low-dimensional ordination based on *k*-mer counts.
 
