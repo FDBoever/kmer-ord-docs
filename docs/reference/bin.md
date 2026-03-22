@@ -1,6 +1,6 @@
 # `kmer-ord bin`
 
-Launch the interactive binning interface (`b2w`) for manual exploration and bin creation.
+Launch the interactive binning interface (`b2w`) for manual exploration and binning.
 
 ---
 

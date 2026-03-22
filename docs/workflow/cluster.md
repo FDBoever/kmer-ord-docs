@@ -32,9 +32,9 @@ kmer-ord cluster \
   --cluster hdbscan,leiden \
   --hdbscan-sweep \
   --threads 8
-  ```
+```
 
-  ---
+---
 
 ## What it does
 
@@ -110,4 +110,3 @@ kmer-ord bin ...
     - clustering is optional but often helpful
     - Results depend strongly on embedding quality
     - Manual binning can refine clustering results
-    

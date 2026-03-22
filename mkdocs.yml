@@ -52,8 +52,8 @@ nav:
   - Reference:
       - Overview: reference/index.md
       - Projection pipeline: reference/project.md
-      - Clustering pipeline: workflow/cluster.md
-      - Visualisation: workflow/visualise.md
+      - Clustering pipeline: reference/cluster.md
+      - Visualisation: reference/visualise.md
       - Interactive binning: reference/bin.md
   
   - Tutorials:
