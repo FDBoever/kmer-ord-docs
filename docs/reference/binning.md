@@ -95,6 +95,10 @@ Each bin stores
 - the selected lasso coordinates (polygon)
 - active filters
 
+Lasso a cluster, name it, and click `Create Bin`.
+
+![Create bin](figures/create_bin.gif)
+
 ### Inspect a selection
 
 Before creating a bin, it can be useful to inspect properties of selected points/reads. We provide functionality to inspect the selected points by showing a table with associated features.
