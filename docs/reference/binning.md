@@ -97,7 +97,7 @@ Each bin stores
 
 Lasso a cluster, name it, and click `Create Bin`.
 
-![Create bin](figures/create_bin.gif)
+![Create bin](../figures/create_bin.gif)
 
 ### Inspect a selection
 
