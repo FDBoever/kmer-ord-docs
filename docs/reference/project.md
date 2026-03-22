@@ -1,6 +1,11 @@
 ```md
 # `kmer-ord project`
 
+Convert sequences (FASTQ/FASTA) into k-mer feature space, compute sequence-level metrics, and generate a low-dimensional (2D/3D) embedding that captures geometric relationships in k-mer space.
+Results are stored in the database for dowstream exploration and annotation.
+
+fastq -> fasta -> sequence stats -> kmer-counting -> DR -> database
+
 ## Usage
 
 ```bash

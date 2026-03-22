@@ -1,9 +1,5 @@
 # kmer-ord Workflow Overview
 
-Welcome to the **kmer-ord workflow overview**. This page provides a high-level guide to using `kmer-ord` to explore read-level k-mer ordination, perform clustering, generate visualisations, and construct interactive bins.
-
-The goal is to give you a **step-by-step narrative** of a typical analysis, while linking to the detailed guides and CLI references for each step.
-
 {==
 
 This section illustrates typical workflows with `kmer-ord`, including projection, clustering, visualisation, and interactive binning.  
