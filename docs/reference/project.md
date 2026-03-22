@@ -11,40 +11,55 @@ kmer-ord project [OPTIONS]
 
 ### Input / Output
 
-| Option | Description |
-|--------|------------|
-| `-i, --input` | FASTA/FASTQ input |
-| `-o, --output` | Output directory |
-| `-f, --force` | Recompute |
+| Parameter           | Flag           | Type | Default      | Description                                        |
+| ------------------- | -------------- | ---- | ------------ | -------------------------------------------------- |
+| Input file          | `-i, --input`  | path | **required** | Input FASTA/FASTQ file (supports `.gz`)            |
+| Output directory    | `-o, --output` | path | **required** | Directory where all results are written            |
+| Force recomputation | `-f, --force`  | bool | `False`      | Overwrite existing outputs and recompute all steps |
+
 
 ### K-mer
 
-| Option | Description |
-|--------|------------|
-| `-k, --kmer` | K-mer length |
+| Parameter    | Flag         | Type | Default | Description                                           |
+| ------------ | ------------ | ---- | ------- | ----------------------------------------------------- |
+| K-mer length | `-k, --kmer` | int  | `6`     | Length of k-mers used to construct the feature matrix |
+
+Smaller k captures coarse composition, larger k captures finer sequence structure but increases dimensionality.
+
 
 ### Dimensionality Reduction
 
-| Option | Description |
-|--------|------------|
-| `--dr` | Methods |
-| `--dims` | Output dimensions |
-| `--scale` | Preset tuning |
-| `--screen_params` | Parameter sweep |
+| Parameter           | Flag              | Type   | Default | Description                                                                         |
+| ------------------- | ----------------- | ------ | ------- | ----------------------------------------------------------------------------------- |
+| DR methods          | `--dr`            | string | `umap`  | Comma-separated methods (e.g. `umap,tsne,pacmap`)                                   |
+| Dimensions          | `-d, --dims`      | int    | `2`     | Number of output dimensions (typically 2 or 3)                                      |
+| Scale preset        | `-s, --scale`     | string | `auto`  | Dataset-aware hyperparameter preset (`auto`, `small`, `medium`, `large`, `default`) |
+| Parameter screening | `--screen_params` | bool   | `False` | Perform parameter sweeps for supported DR methods                                   |
+
+
+Common methods include: umap, tsne, pacmap, trimap, localmap, pca
+
+Use multiple DR methods to assess robustness of structure across embeddings.
 
 ### Preprocessing
 
-| Option | Description |
-|--------|------------|
-| `--norm` | Normalisation |
-| `--pca-pre` | PCA |
-| `--keep-variance` | Variance threshold |
+| Parameter          | Flag              | Type   | Default | Description                                                       |
+| ------------------ | ----------------- | ------ | ------- | ----------------------------------------------------------------- |
+| Normalisation      | `--norm`          | string | `clr`   | Feature normalisation (`raw`, `relative`, `log`, `clr`, `zscore`) |
+| PCA pre-reduction  | `--pca-pre`       | bool   | `False` | Apply PCA before dimensionality reduction                         |
+| Number of PCs      | `--keep-pcs`      | int    | `None`  | Retain a fixed number of principal components                     |
+| Variance threshold | `--keep-variance` | float  | `None`  | Retain PCs explaining given variance (e.g. `0.9`)                 |
+
+Use either `--keep-pcs` or `--keep-variance`, not both.
+
+PCA is usually unnecessary, but may help with very high-dimensional or large datasets.
+
 
 ### Performance
 
-| Option | Description |
-|--------|------------|
-| `-t, --threads` | Threads |
+| Parameter | Flag            | Type | Default | Description                                |
+| --------- | --------------- | ---- | ------- | ------------------------------------------ |
+| Threads   | `-t, --threads` | int  | `4`     | Number of CPU threads used for computation |
 
 
 

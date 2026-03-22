@@ -55,6 +55,7 @@ nav:
       - Clustering pipeline: reference/cluster.md
       - Visualisation: reference/visualise.md
       - Interactive binning: reference/bin.md
+      - Database: reference/database.md
   
   - Tutorials:
       - Overview: tutorials/index.md

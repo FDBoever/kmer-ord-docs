@@ -40,7 +40,7 @@ http://localhost:8050
 
 ---
 
-## Mental model
+## Conceptual
 
 Understanding the interface becomes much easier if you think in the following way:
 
@@ -51,10 +51,11 @@ Understanding the interface becomes much easier if you think in the following wa
 * **Bin** → a saved selection (polygon + filters + embedding)
 
 !!! info "What is a bin?"
-A bin is defined by:
-- a polygon (lasso selection)
-- a coordinate system
-- active filters
+
+    A bin is defined by:
+    - a polygon (lasso selection)
+    - a coordinate system
+    - active filters
 
 
 !!! tip
@@ -107,7 +108,8 @@ Switch to **feature comparison mode** to understand what drives structure.
 Each panel shows the same embedding coloured differently.
 
 !!! tip
-Use this to identify features that separate clusters — this is often the key to meaningful binning.
+
+    Use this to identify features that separate clusters — this is often the key to meaningful binning.
 
 ---
 
@@ -121,19 +123,22 @@ You can:
 * select categories for categorical features
 
 !!! warning "Filters affect everything"
-Filters apply to:
-- visualisation
-- lasso selection
-- bin creation
-- export
+
+    Filters apply to:
+    - visualisation
+    - lasso selection
+    - bin creation
+    - export
+
 
 ```
 If you want *all reads* in a bin, avoid filtering.
 ```
 
 !!! tip
-Filtering is useful for high-coverage datasets
-(e.g. selecting only reads > 10 kb)
+
+    Filtering is useful for high-coverage datasets
+    (e.g. selecting only reads > 10 kb)
 
 ---
 
@@ -149,10 +154,11 @@ Define a bin by selecting a cluster:
 The bin will appear in the **Bin List**.
 
 !!! success
-Your bin now stores:
-- embedding used
-- polygon (lasso shape)
-- active filters
+
+    Your bin now stores:
+    - embedding used
+    - polygon (lasso shape)
+    - active filters
 
 ---
 
@@ -182,10 +188,10 @@ Use **Overlay points** to check consistency:
 The same reads will be highlighted across all plots.
 
 !!! tip
-This is one of the most powerful features:
-- confirms cluster stability
-- reveals contamination
-- increases confidence in bins
+    This is one of the most powerful features:
+    - confirms cluster stability
+    - reveals contamination
+    - increases confidence in bins
 
 ---
 
@@ -218,10 +224,10 @@ FASTQ is written when quality scores are available.
 ## Common pitfalls
 
 !!! warning
-- Only **one lasso selection** can be active at a time
-- You must click **Update plots** after changing inputs
-- Filters may unintentionally exclude reads
-- Clearing plots does not remove bins
+    - Only **one lasso selection** can be active at a time
+    - You must click **Update plots** after changing inputs
+    - Filters may unintentionally exclude reads
+    - Clearing plots does not remove bins
 
 ---
 
