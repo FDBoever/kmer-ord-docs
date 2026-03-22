@@ -35,30 +35,41 @@ theme:
       icon: material/weather-night
       name: Light mode
     primary: black
-    accent: deep organe
+    accent: deep orange
 
 nav:
   - Home: index.md
   - Installation: installation.md
   - Quickstart: quickstart.md
 
+  - workflow:
+      - Overview: workflow/index.md
+      - Projection pipeline: workflow/project.md
+      - Clustering pipeline: workflow/cluster.md
+      - Visualisation: workflow/visualise.md
+      - Interactive Binning: workflow/bin.md
+
+  - Reference:
+      - Overview: reference/index.md
+      - Projection pipeline: reference/project.md
+      - Clustering pipeline: workflow/cluster.md
+      - Visualisation: workflow/visualise.md
+      - Interactive binning: reference/bin.md
+  
   - Tutorials:
-      - Tutorials overview: tutorials/index.md
+      - Overview: tutorials/index.md
       - Basic usage: tutorials/basic_usage.md
       - Advanced usage: tutorials/advanced_usage.md
   
-  - Reference:
-      - Reference overview: reference/index.md
-      - k-mer counting: reference/kmer_counting.md
-      - k-mer ordination: reference/kmer_ord.md
-      - Interactive binning: reference/binning.md
-
   - Concepts:
-      - Concepts overview: concepts/index.md
+      - Overview: concepts/index.md
       - K-mer counting: concepts/kmer_counting.md
       - Compositional data: concepts/compositional_data.md
       - Dimensionality reduction: concepts/dimensionality_reduction.md
       - Parameter screening: concepts/parameter_screening.md
+
+  - FAQ: faq.md
+
 
 markdown_extensions:
   - pymdownx.superfences

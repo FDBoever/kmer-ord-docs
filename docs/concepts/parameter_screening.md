@@ -5,11 +5,12 @@ control the balance between **local** and **global** structure preservation.
 The optimal parameter values are *data-dependent* and may vary substantially
 with dataset size, density, and noise.
 
-*kmer-ord* therefore supports **parameter screening**, where multiple
+`kmer-ord` therefore supports **parameter screening**, where multiple
 embeddings are generated across a predefined parameter grid instead of relying
 on a single configuration.
 
 This allows users to:
+
 - assess embedding stability
 - compare local vs global structure preservation
 - select parameters appropriate for dataset scale and analysis goals

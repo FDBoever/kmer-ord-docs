@@ -1,46 +1,82 @@
-# References overview
-
+# Reference Overview
 
 {==
 
-Complete command-line and parameter documentation are provided for each script
+Complete command-line and parameter documentation are provided for each pipeline step.  
+
+Each page details **all options**, **outputs**, and **usage examples** for reproducibility.
 
 ==}
 
-## Scripts
-
+## Pipelines
 
 <div class="grid cards" markdown>
 
--   __*k*-mer counting__
+- __Projection (`project`)__
 
     ---
     
-    [:octicons-arrow-right-24: kmer-counting.py](./kmer_counting.md)
+    [:octicons-arrow-right-24: project](./project.md)
 
-    Generate a k-mer count matrix from one or more FASTA files
+    Generate k-mer embeddings from input reads (FASTA/FASTQ). Includes normalization, dimensionality reduction, and PCA preprocessing.
 
     ```bash
-        python kmer-counting.py \
-        --input input.fasta \
-        --k 6 \
-        --output 6mer
+    kmer-ord project \
+        -i reads.fastq.gz \
+        -o output_dir \
+        -k 6 \
+        --dr umap,localmap,pacmap \
+        --norm clr \
+        --dims 2 \
+        --pca-pre \
+        --keep-variance 0.9 \
+        --scale large
     ```
 
- 
--   __Embedding__
+- __Clustering (`cluster`)__
 
     ---
+    
+    [:octicons-arrow-right-24: cluster](./cluster.md)
 
-    [:octicons-arrow-right-24: kmer-ord.py](./kmer_ord.md)
-
-    Embed kmer counts using all DR methods with default settings
+    Perform high-dimensional embedding followed by clustering. Supports HDBSCAN, Leiden, and DBSCAN.
 
     ```bash
-    python kmer-ord.py \
-        --input kmer_matrix.tsv \
-        --methods all \
-        --normalisation clr
+    kmer-ord cluster \
+        -i reads.fastq.gz \
+        -o output_dir \
+        --dr umap \
+        --dims 15 \
+        --cluster hdbscan,leiden \
+        --hdbscan-sweep \
+        --threads 8
+    ```
+
+- __Visualisation (`visualise`)__
+
+    ---
+    
+    [:octicons-arrow-right-24: visualise](./visualise.md)
+
+    Generate plots from an existing database. Control embedding and feature plots, and limit categorical complexity.
+
+    ```bash
+    kmer-ord visualise \
+        -d results/kmer-ord.sqlite \
+        --embedding-mode all \
+        --max-categories 15
+    ```
+
+- __Interactive Binning (`bin`)__
+
+    ---
+    
+    [:octicons-arrow-right-24: bin](./bin.md)
+
+    Launch the **b2w** interactive Dash interface for visual binning of reads. Supports lasso selection, overlays, and bin export.
+
+    ```bash
+    kmer-ord bin -d results/kmerord.sqlite -o results/bins
     ```
 
 </div>
