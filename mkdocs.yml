@@ -42,7 +42,7 @@ nav:
   - Installation: installation.md
   - Quickstart: quickstart.md
 
-  - workflow:
+  - Workflow:
       - Overview: workflow/index.md
       - Projection pipeline: workflow/project.md
       - Clustering pipeline: workflow/cluster.md

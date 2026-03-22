@@ -53,19 +53,25 @@ kmer-ord project \
 
 ### 1. k-mer count table
 
-`kmer-ord project` produces a k-mer count table as tab-separated matrix:
+`/kmer-ord project` produces a k-mer count table as tab-separated matrix:
 
 ```
+<output_dir>/kmer/<basename>_<k>mer_matrix.tsv
+```
+
+
+``` title="reads_6mer_matrix.tsv" linenums="1"
 Sequence_ID   AAA...   AAC...   AAG...   ...
 read_001     12        0         4
 read_002     7         2         1
 ```
 
+
 - Rows correspond to samples (reads, contigs, or assemblies)
 - Columns correspond to cannonicalised *k*-mers
 - Values are raw *k*-mer counts
 
-For details on:
+For more details on:
 
 - k-mer counting, see: `kmer_counting.py`(concepts/kmer_counting.md)
 - `kmer-ord project` command-line details:  `project`(reference/project.md)
@@ -117,6 +123,8 @@ This reduces dimensionality while retaining 90% of the variance before embedding
 
 `kmer-ord project` then runs DR. multiple DR methods can be specified.
 
+Run a single method:
+
 ```bash
 kmer-ord project \
   -i reads.fastq.gz \
@@ -124,27 +132,29 @@ kmer-ord project \
   --dr umap,localmap,pacmap
 ```
 
----
-
-## 5. Scaling to dataset size
-
-For larger datasets, scale-aware presets can be used:
+Run multiple method:
 
 ```bash
-python kmer-ord.py \
-  --input kmer_matrix.tsv \
-  --methods umap \
-  --scale large
+kmer-ord project \
+  -i reads.fastq.gz \
+  -o output_dir \
+  --dr umap,localmap,pacmap,tsne
 ```
 
-Available scale categories are:
-`default`, `small`, `medium`, `large`, or `auto`
+Run all supported methods:
+
+```bash
+kmer-ord project \
+  -i reads.fastq.gz \
+  -o output_dir \
+  --dr all
+```
 
 ---
 
-## 6. Consider parameter screening
+## 5. Parameter screening
 
-Dimensionality reduction is sensitive to hyperparameters. Parameter screening can help identify optimal settings.
+Dimensionality reduction is sensitive to hyperparameters. `kmer-ord project` provides automated parameter screening to explore how different hyperparameter choices affect the resultion embeddings. Screening focuses on parameters that control the balance between global structure preservation, which is particularly important as dataset sizes increases
 
 ```bash
 kmer-ord project \
@@ -155,5 +165,47 @@ kmer-ord project \
   --screen_params
 ```
 
+When enabled, the script evaluates multiple parameter combinations and writes each embedding to disk. 
+
+- t-SNE screens multiple `perplexity` and `learning-rate` values
+- UMAP screens multiple `n_neighbors` and `min_dist` values 
+- TRIMAP screens multiple `n_inliers` and `weight_temp` values
+
+!!! Note
+    - screening is computationally expensive for large datasets
+    - parameter screening is indended for exploratory analysis
+    - For routine analysis, scale-dependent presents (via `--scale`) provide reasonable hyperparameter settings without exhaustive screening.
+
+
 - k-mer counting, see: `kmer_counting.py`(concepts/parameter_screening.md)
 - `kmer-ord project` command-line details:  `project`(reference/project.md)
+
+---
+
+## 6. Hyperparameter ~ dataset scale
+
+In addition to explicit parameter screening, `kmer-ord project` provides predefined hyperparameter presets that adapt DR methods to different dataset sizes. Use `--scale auto`:
+
+```bash
+python kmer-ord.py \
+  --input kmer_matrix.tsv \
+  --methods umap \
+  --scale auto
+```
+
+| Parameter     | Flag      | Type   | Default   | Description                               |
+| ------------- | --------- | ------ | --------- | ----------------------------------------- |
+| Dataset scale | `--scale` | string | `default` | Select a predefined hyperparameter preset |
+
+allowed values are `default`, `small`, `medium`, `large`, and `auto`
+
+Each preset maps to method-specific hyperparameters that are chosen to be sensible to the corresponding dataset size (e.g. n_neighbors for UMAP, perplexity for t-SNE, or FP_ratio for PaCMAP and LocalMAP). 
+
+when `--scale auto` is used, the scale category is inferred from the number of sequences in the input matrix:
+
+- small: fewer than 100,000 sequences
+- medium 100,000 to 1,000,000 sequences
+- large: more than 1,000,000 sequences
+
+!!! Note
+    When screening is enabled via `--screen_params`, preset values are ignored (`--scale`), all relevant parameter combinations are evaluated and saved.

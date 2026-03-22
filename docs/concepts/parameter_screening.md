@@ -332,3 +332,30 @@ nonlinear dimensionality reduction. Rather than hiding this complexity,
 `kmer-ord` makes it explicit and reproducible.
 
 treat embeddings as exploratory models, not definitive representations.
+
+
+
+### scale in kmer-ord
+
+| Method       | Scale   | Hyperparameters                                 |
+| ------------ | ------- | ----------------------------------------------- |
+| **UMAP**     | default | `n_neighbors=15`, `min_dist=0.1`                |
+|              | small   | `n_neighbors=30`, `min_dist=0.05`               |
+|              | medium  | `n_neighbors=100`, `min_dist=0.1`               |
+|              | large   | `n_neighbors=150`, `min_dist=0.2`               |
+| **t-SNE**    | default | `init=pca`, `random_state=42`                   |
+|              | small   | `perplexity=30`, `init=pca`, `random_state=42`  |
+|              | medium  | `perplexity=100`, `init=pca`, `random_state=42` |
+|              | large   | `perplexity=200`, `init=pca`, `random_state=42` |
+| **TRIMAP**   | default | `n_inliers=10`, `weight_temp=0.5`               |
+|              | small   | `n_inliers=50`, `weight_temp=0.3`               |
+|              | medium  | `n_inliers=100`, `weight_temp=0.4`              |
+|              | large   | `n_inliers=150`, `weight_temp=0.5`              |
+| **PaCMAP**   | default | `MN_ratio=0.5`, `FP_ratio=2`                    |
+|              | small   | `MN_ratio=0.5`, `FP_ratio=2`                    |
+|              | medium  | `MN_ratio=0.5`, `FP_ratio=3`                    |
+|              | large   | `MN_ratio=0.5`, `FP_ratio=5`                    |
+| **LocalMAP** | default | `MN_ratio=0.5`, `FP_ratio=0.5`                  |
+|              | small   | `MN_ratio=0.3`, `FP_ratio=0.5`                  |
+|              | medium  | `MN_ratio=0.5`, `FP_ratio=0.7`                  |
+|              | large   | `MN_ratio=0.7`, `FP_ratio=1.0`                  |
