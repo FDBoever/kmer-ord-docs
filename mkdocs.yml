@@ -51,6 +51,7 @@ nav:
       - Reference overview: reference/index.md
       - k-mer counting: reference/kmer_counting.md
       - k-mer ordination: reference/kmer_ord.md
+      - Interactive binning: reference/binning.md
 
   - Concepts:
       - Concepts overview: concepts/index.md
