@@ -1,8 +1,10 @@
 # Clustering reads
 
-The `cluster` command performs high-dimensional embedding followed by clustering of reads.
+The `kemr-ord cluster` command performs high-dimensional embedding (e.g. 10–50 dimensions) followed by clustering of reads.
 
-It is typically used after or instead of `project` when the goal is to automatically group reads into clusters.
+It is typically used after or instead of `kmer-ord project` when the goal is to automatically group reads into clusters.
+
+As opposed to `project`, `cluster` is not aimed to visualise the data, but to aid in identifying bins by predicting clusters.
 
 ---
 
@@ -17,11 +19,17 @@ Clustering is useful when:
 !!! tip
 
     Clustering works best in higher-dimensional embeddings (e.g. 10–50 dimensions),
-    even if visualisation is done in 2D.
+    even if visualisation is done in 2D/3D.
+
+    so: 
+    use `kmer-ord project` to embed in 2D/3D for visualisation
+    use `kmer-ord cluster` to embed in higher dimensional spaces (10-50D), optimised for cluster detection
 
 ---
 
 ## Example
+
+For example, run `kmer-ord cluster` to embedd the data in 15D using UMAP, and identify clusters using the HDBSCAN and Leiden algorithms. 
 
 ```bash
 kmer-ord cluster \
@@ -62,13 +70,13 @@ kmer-ord cluster \
 - graph-based clustering
 - good for structured manifolds
 - sensitive to resolution parameter
-- limited here for UMAP
+- Leiden algorithm is for graph based clustering, and currently limited to UMAP-derived graphs
 
 ---
 
 ## Parameter sweeps
 
-Parameter sweeps allow exploring clustering behavior automatically
+Clustering is sensitive to hyper parameters.Parameter sweeps allow exploring clustering behavior automatically
 
 | Option            | Purpose                                 |
 | ----------------- | --------------------------------------- |
@@ -79,7 +87,7 @@ Parameter sweeps allow exploring clustering behavior automatically
 
 !!! tip
 
-    Sweeps are useful when optimal parameters are unknown.
+    Sweeps are useful when optimal hyperparameters are unknown. We highly recommend enabling parameter screens when aiming for unsupervised binning
 
 ---
 
@@ -107,6 +115,12 @@ kmer-ord bin ...
 
 !!! Note
 
-    - clustering is optional but often helpful
+    - Clustering is optional but often helpful
     - Results depend strongly on embedding quality
     - Manual binning can refine clustering results
+
+---
+
+See also:
+
+- [Command-line details: `kmer-ord cluster`](../reference/cluster.md)

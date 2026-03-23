@@ -7,6 +7,8 @@ git clone https://github.com/FDBoever/kmer-ord.git
 cd kmer-ord
 ```
 
+---
+
 ## 2. Create a fresh conda environment
 
 Option A (recommended): use the provided `environment.yml`
@@ -27,8 +29,10 @@ conda install -c conda-forge numpy pandas scikit-learn umap-learn pacmap numba l
 
 Tip: You can replace `conda` with `mamba` for faster installs.
 
-## 3. Install the package
-First ensure you are inside the kmer-ord directory, and activated the conda environment
+---
+
+## 3. Install the `kmer-ord` package
+First ensure you are inside the kmer-ord directory (obtained from GitHub), and activated the conda environment
 
 For users
 
@@ -42,16 +46,24 @@ For developers (editable install)
 pip install -e .
 ```
 
+---
+
 ## 4. Set up external tools and databases
 
-Finally, use kmer-ord to set up internal environments for external tools and downloading rRNA databases (this can take a while, so consider grabbing yourself a coffee) 
+Finally, use `kmer-ord` to set up internal environments for external tools and downloading rRNA databases (this can take a while, so consider grabbing yourself a coffee) 
 
 ```bash
 kmer-ord setup
 ```
 
+---
+
 ## 5. Verify installation 
+
+Finally, check whether the tool is installed.
 
 ```bash
 kmer-ord --help
 ```
+
+---

@@ -1,11 +1,11 @@
 # `kmer-ord bin`
 
-Launch the interactive binning interface (`b2w`) for manual exploration and binning.
+Launch the interactive binning interface (`b2w`) for manual exploration and binning. `b2w` is built using `Dash`.
 
 - exploring embeddings interactively
 - selecting reads using lasso tools
-- creating reproducible bins
-- exporting sequences and metadata
+- creating bins
+- exporting bins (both sequences and metadata)
 
 ---
 
@@ -55,7 +55,7 @@ http://127.0.0.1:8050
 
 ## What happens
 
-- A local Dash server is started
+- A local `Dash` server is started
 - Serves the interactive interface in a browser
 - Loads embeddings and features from the database
 
@@ -69,7 +69,7 @@ Exported bins are written to:
 <output_dir>/
 ```
 
-For each bin:
+Following files are generated for each bin:
 
 - `<bin_name>.csv` - table of selected reads and features
 - `<bin_name>.fasta` or `.fastq` - sequences
@@ -77,6 +77,7 @@ For each bin:
 
 ---
 
-See also: 
-- [Workflow: Interactive binning](../workflow/bin.md)
+See also:
+
+- [User guide: `kmer-ord bin`](../workflow/bin.md)
 - [Database structure](../reference/database.md)

@@ -6,12 +6,12 @@ Documentation is still under development, bare with us
 
 ==}
 
-This documentation describes a toolkit for computing, normalising, and ordinating k-mer count data for exploratory analysis of long-read sequencing datasets or assembled contigs.
+This documentation describes the `kmer-ord` toolkit for computing, normalising, and ordinating *k*-mer count data for exploratory analysis of long-read sequencing datasets or assembled contigs.
 
 The workflow consists of:
 
-- [ ] Generating k-mer count matrices
-- [ ] Applying appropriate normalisation for compositional data
+- [ ] Generating *k*-mer count matrices
+- [ ] Preprocessing the count matrix with appropriate normalisation for compositional data
 - [ ] Performing dimensionality reduction
 - [ ] Inspecting embeddings structure and binning
 
@@ -43,7 +43,9 @@ The workflow consists of:
     ---
 
     Practical guides for common workflows and analyses
+    [:octicons-arrow-right-24: Workflows](./workflow/index.md)
 
+    Detailed examples
     [:octicons-arrow-right-24: Tutorials](./tutorials/index.md)
 
 -   :fontawesome-solid-brain:{ .lg .middle } __Concepts__

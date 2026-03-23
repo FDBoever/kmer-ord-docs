@@ -121,5 +121,8 @@ Use instead:
 
 ---
 
-See also: [User guide](../workflow/visualise.md)
+See also: 
+
+- [User guide: `kmer-ord visualise`](../workflow/visualise.md)
+
 

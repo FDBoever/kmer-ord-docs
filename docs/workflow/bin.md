@@ -2,14 +2,14 @@
 
 ## Overview
 
-The **b2w interface** provides an interactive environment for exploring read embeddings and constructing bins using lasso-based selection.
+The **b2w interface** is built with `Dash` and provides an interactive environment for exploring read embeddings and constructing bins using lasso-based selection.
 
 It allows you to:
 
 * explore structure in embeddings (UMAP, PCA, etc.)
 * colour reads by features
 * interactively select clusters
-* export reproducible bins
+* export bins
 
 ![Create bin](../figures/create_bin.gif)
 
@@ -61,7 +61,7 @@ Understanding the interface becomes much easier if you think in the following wa
 !!! tip
 
     - Use multiple embeddings to validate clusters
-    - Overlay is extremely powerful for detecting contamination
+    - Overlay is extremely powerful for detecting contamination and assess selected point across embeddings
     - Feature comparison often reveals hidden structure
 
 ---
@@ -89,27 +89,27 @@ Contains:
 
 Start by visualising your data:
 
-1. Select one or more coordinate systems (e.g. UMAP, PCA)
-2. Choose a feature to colour by
+1. Select one or more coordinate systems (e.g. UMAP, LocalMAP, PaCMAP, PCA)
+2. Choose a feature to colour by (e.g. GC-content)
 3. Click **Update plots**
 
-This reveals structure in your data and helps identify candidate clusters.
+This will generate and show the requested plots in the main panel. Inspect the structure in your data and identify candidate clusters.
 
 ---
 
 ## Step 2 — Compare features
 
-Switch to **feature comparison mode** to understand what drives structure.
+Switch to **feature comparison mode** to help understand what drives structure.
 
-1. Select a single embedding
-2. Select multiple features
+1. Select a single embedding (for example UMAP)
+2. Select multiple features (GC-content, k-mer evenness, Tiara predictions...)
 3. Click **Update plots**
 
-Each panel shows the same embedding coloured differently.
+Now each panel shows the same embedding coloured differently.
 
 !!! tip
 
-    Use this to identify features that separate clusters — this is often the key to meaningful binning.
+    Use **feature comparison mode** to identify features that separate clusters — this is often the key to meaningful binning.
 
 ---
 
@@ -123,6 +123,7 @@ You can:
 * select categories for categorical features
 
 !!! warning "Filters affect everything"
+    Only filter when intended
 
     Filters apply to:
     - visualisation
@@ -131,18 +132,30 @@ You can:
     - export
 
 
-```
-If you want *all reads* in a bin, avoid filtering.
-```
-
 !!! tip
 
-    Filtering is useful for high-coverage datasets
-    (e.g. selecting only reads > 10 kb)
+    Filtering may be useful for high-coverage datasets (e.g. selecting only reads > 10 kb).
 
 ---
 
-## Step 4 — Create a bin
+## Step 4 — Inspect a selection
+
+Before committing to a bin, inspect the selected reads:
+
+1. Use the **lasso tool** (top-right of a plot)
+2. Draw a selection around a cluster
+3. Click **Inspect Bin**
+
+A table will show all selected reads and their features.
+
+This is useful for:
+
+* validating cluster purity
+* checking feature distributions
+
+---
+
+## Step 5 — Create a bin
 
 Define a bin by selecting a cluster:
 
@@ -159,22 +172,6 @@ The bin will appear in the **Bin List**.
     - embedding used
     - polygon (lasso shape)
     - active filters
-
----
-
-## Step 5 — Inspect a selection
-
-Before committing to a bin, inspect the selected reads:
-
-1. Lasso a region
-2. Click **Inspect Bin**
-
-A table will show all selected reads and their features.
-
-This is useful for:
-
-* validating cluster purity
-* checking feature distributions
 
 ---
 
@@ -224,6 +221,7 @@ FASTQ is written when quality scores are available.
 ## Common pitfalls
 
 !!! warning
+
     - Only **one lasso selection** can be active at a time
     - You must click **Update plots** after changing inputs
     - Filters may unintentionally exclude reads
@@ -234,8 +232,8 @@ FASTQ is written when quality scores are available.
 ## Practical tips
 
 * Use feature comparison to identify meaningful splits
-* Avoid filtering unless necessary
-* Use overlay to confirm clusters across embeddings
+* Avoid filtering unless intended
+* Use **Overlay points** to confirm clusters across embeddings
 * Inspect selections before creating bins
 
 ---
@@ -253,9 +251,10 @@ The typical workflow is:
 7. Create bins
 8. Export results
 
-This iterative process allows you to move from raw embeddings to biologically meaningful bins with full control and transparency.
-
 ---
 
-See also: [Reference](../reference/bin.md)
+See also:
+
+- [Command-line details: `kmer-ord bin`](../reference/bin.md)
+
 

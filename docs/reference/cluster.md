@@ -3,9 +3,10 @@
 Perform high-dimensional embedding followed by unsupervised clustering.
 
 - construct a high-dimensional representation of k-mer space
-- detect intrinsic structure using clustering algorithms
-- integrate results into a SQLite/SpatiaLite database
+- detect intrinsic structure using clustering algorithms (DBSCAN, HDBSCAN, Leiden)
+- integrate results into an existing SQLite/SpatiaLite database
 
+Given that the clustering results are integrated in an existing SQLite database, we suggest to run `kmer-ord project` first. This allows clustering results to be visualised on 2D/3D grahps for inspection.
 
 ---
 
@@ -135,7 +136,15 @@ Use this command when you want to:
 - identify structure in large datasets
 - explore unsupervised binning
 
-Complement it with
+We highly recommend to run `kmer-ord project` first, which will allow visualisation of clustering results in 2D/3D.
 
-project → for exploratory embeddings and visualisation
-bin → for visualising data and refining cluster predictions.
+Clustering predictions can be inspected and refined using `kmer-ord project`. Alhough in some cases, unsupervised clustering may yield faithful clustering of the data, we do suggest careful curation.
+
+---
+
+See also:
+
+- [User guide: `kmer-ord cluster`](../workflow/cluster.md)
+
+
+

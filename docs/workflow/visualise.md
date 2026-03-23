@@ -21,8 +21,7 @@ Use `visualise` when you want to:
 ```bash
 kmer-ord visualise \
   -d results/kmer-ord.sqlite \
-  --embedding-mode all \
-  --max-categories 15
+  --embedding-mode all
 ```
 
 ---
@@ -83,7 +82,8 @@ All plots are saved to:
 - use `visualise` for fast, static inspection
 - use `bin` for manual exploration and binning
 
-
 ---
 
-See also: [Reference](../reference/visualise.md)
+See also:
+
+- [Command-line details: `kmer-ord visualise`](../reference/visualise.md)

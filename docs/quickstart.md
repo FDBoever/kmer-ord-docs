@@ -6,11 +6,15 @@
 kmer-ord setup
 ```
 
+---
+
 ## 2. Run projection pipeline
 
 ```bash
 kmer-ord project -i reads.fastq.gz -o output_dir
 ```
+
+---
 
 ## 3. Run clustering pipeline
 
@@ -18,16 +22,20 @@ kmer-ord project -i reads.fastq.gz -o output_dir
 kmer-ord cluster -i input.fastq -o output_dir
 ```
 
+---
+
 ## 4. Visualise results
 
 ```bash
-kmer-ord visualise -d results/kmerord.sqlite
+kmer-ord visualise -d output_dir/kmerord.sqlite
 ```
+
+---
 
 ## 5. Launch interactive binning app
 
 ```bash
-kmer-ord bin -d results/kmerord.sqlite -o results/bins
+kmer-ord bin -d output_dir/kmerord.sqlite -o output_dir/bins
 ```
 
 Then open: 
@@ -42,6 +50,8 @@ or
 http://127.0.0.1:8050/
 ```
 
+---
+
 ## 6. Output
 
 ```bash
@@ -52,5 +62,6 @@ output_dir/
 ├── embeddings/
 ├── clustering/
 ├── bins/
+├── plots/
 └── kmer-ord.sqlite
 ```

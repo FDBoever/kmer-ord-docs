@@ -212,4 +212,6 @@ See: [Database schema](../reference/database.md)
 
 ---
 
-See also: [User guide](../workflow/project.md)
+See also:
+
+- [User guide: `kmer-ord project`](../workflow/project.md)

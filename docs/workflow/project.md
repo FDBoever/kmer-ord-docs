@@ -209,3 +209,10 @@ when `--scale auto` is used, the scale category is inferred from the number of s
 
 !!! Note
     When screening is enabled via `--screen_params`, preset values are ignored (`--scale`), all relevant parameter combinations are evaluated and saved.
+
+
+---
+
+See also:
+
+- [Command-line details: `kmer-ord project`](../reference/project.md)
