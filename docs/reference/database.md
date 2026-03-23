@@ -159,7 +159,7 @@ This is how lasso selection works in the interactive app (which is basically a G
 
 ## Inspecting the database
 
-```
+```py
 from kmer_ord.db.inspect import inspect_database
 
 inspect_database("results/kmer-ord.sqlite", limit=5)
