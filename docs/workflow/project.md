@@ -129,7 +129,7 @@ Run a single method:
 kmer-ord project \
   -i reads.fastq.gz \
   -o output_dir \
-  --dr umap,localmap,pacmap
+  --dr umap
 ```
 
 Run multiple method:

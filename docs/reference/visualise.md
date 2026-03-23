@@ -83,20 +83,26 @@ plots/
 
 ### Generate all plots
 
+```bash
 kmer-ord visualise \
   -d results/kmer-ord.sqlite
+```
 
 ### Only embedding plots
 
+```bash
 kmer-ord visualise \
   -d results/kmer-ord.sqlite \
   --no-features
+```
 
 ### Continuous-only embedding plots
 
+```bash
 kmer-ord visualise \
   -d results/kmer-ord.sqlite \
   --embedding-mode continuous
+```
 
 ---
 
